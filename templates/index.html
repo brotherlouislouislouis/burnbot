@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BurnBot</title>
+    <link rel="icon" href="static/fire.png" type="image/png">
+    <style>
+        @font-face {
+            font-family: 'FireFont';
+            src: url('static/fire.ttf') format('truetype');
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #222;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            background: url('static/burnmeta.gif') no-repeat center;
+            background-size: cover;
+            margin: 20px 0;
+            -webkit-text-fill-color: white; /* Ensures visibility */
+            padding: 20px;
+        }
+        .center-content {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+        }
+        .center-content img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            object-fit: contain;
+        }
+        .social-link {
+            display: inline-block;
+            width: 150px;
+            height: 50px;
+            margin: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 50px;
+            text-decoration: none;
+            text-align: center;
+            background: url('static/socials.gif') no-repeat center;
+            background-size: cover;
+            border-radius: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 20px 0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: url('static/burnmeta.gif') no-repeat center;
+            background-size: cover;
+        }
+        .button:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #burn-output {
+            margin-top: 20px;
+            padding: 40px;
+            background: url('static/fuego.gif') no-repeat center;
+            background-size: cover;
+            color: white;
+            font-family: 'FireFont', Arial, sans-serif;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+            border: 3px solid white;
+            border-radius: 15px;
+        }
+        footer {
+            margin-top: auto;
+            padding: 10px;
+            background-color: #111;
+            color: white;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Burn Bot</div>
+
+    <div class="center-content">
+        <img src="static/burnbot.png" alt="BurnBot Logo">
+    </div>
+
+    <button class="button" onclick="generateBurnMeta()">Burn AI Meta</button>
+
+    <div id="burn-output">Sacrifice an AI agent to AI gods by tapping the fire above!</div>
+
+    <div class="center-content">
+        <a href="https://twitter.com" target="_blank" class="social-link">Twitter</a>
+        <a href="https://discord.com" target="_blank" class="social-link">Discord</a>
+        <a href="https://telegram.org" target="_blank" class="social-link">Telegram</a>
+    </div>
+
+    <footer>
+        &copy; 2025 BurnBot. All rights reserved.
+    </footer>
+
+    <script>
+        async function generateBurnMeta() {
+            try {
+                const response = await fetch('/random_joke');
+                const data = await response.json();
+                const joke = data.joke || 'No burn available.';
+                const outputElement = document.getElementById('burn-output');
+                outputElement.innerHTML = `
+                    <p>${joke}</p>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(joke)}" target="_blank" style="color: #1da1f2; text-decoration: none; font-weight: bold;">Tweet This</a>
+                `;
+            } catch (error) {
+                console.error('Error fetching burn meta:', error);
+                document.getElementById('burn-output').textContent = 'Failed to generate a burn.';
+            }
+        }
+    </script>
+</body>
+</html>
